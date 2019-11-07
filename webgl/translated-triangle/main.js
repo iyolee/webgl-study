@@ -1,8 +1,9 @@
 // 顶点着色器程序
 const VSHADER_SOURCE = `
   attribute vec4 a_Position;
+  uniform vec4 u_Translation;
   void main() {
-    gl_Position = a_Position;
+    gl_Position = a_Position + u_Translation;
   }
 `
 
@@ -13,6 +14,11 @@ const FSHPDER_SOURCE = `
     gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
   }
 `
+
+// 在x y z方向上平移的距离
+const Tx = 0.5;
+const Ty = 0.5;
+const Tz = 0.0;
 
 function main() {
   const canvas = document.getElementById('webgl')
@@ -32,19 +38,16 @@ function main() {
     return;
   }
 
+  // 将平移距离传输给定点着色器
+  const u_Translation = gl.getUniformLocation(gl.program, 'u_Translation');
+
+  gl.uniform4f(u_Translation, Tx, Ty, Tz, 0.0);
+
   // 清除canvas
   gl.clear(gl.COLOR_BUFFER_BIT);
-  // 绘制三个点
-  // gl.drawArrays(gl.POINTS, 0, n);
 
   // 绘制三角形
   gl.drawArrays(gl.TRIANGLES, 0, n);
-  // 绘制线段
-  // gl.drawArrays(gl.LINES, 0, n);
-  // 绘制线条
-  // gl.drawArrays(gl.LINE_STRIP, 0, n);
-  // 绘制回路
-  // gl.drawArrays(gl.LINE_LOOP, 0, n);
 }
 
 function initVertexBuffers(gl) {

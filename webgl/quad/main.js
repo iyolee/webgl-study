@@ -37,21 +37,16 @@ function main() {
   // 绘制三个点
   // gl.drawArrays(gl.POINTS, 0, n);
 
+  // gl.drawArrays 执行顶点着色器
   // 绘制三角形
-  gl.drawArrays(gl.TRIANGLES, 0, n);
-  // 绘制线段
-  // gl.drawArrays(gl.LINES, 0, n);
-  // 绘制线条
-  // gl.drawArrays(gl.LINE_STRIP, 0, n);
-  // 绘制回路
-  // gl.drawArrays(gl.LINE_LOOP, 0, n);
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, n);
 }
 
 function initVertexBuffers(gl) {
   const vertices = new Float32Array([
-    0.0, 0.5, -0.5, -0.5, 0.5, -0.5
+    -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5
   ]);
-  const n = 3;
+  const n = 4;
 
   // 创建缓冲区对象
   const vertexBuffer = gl.createBuffer();
